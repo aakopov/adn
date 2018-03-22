@@ -12,4 +12,15 @@ export class ImageService {
                 .catch(result => error(result));
         });
     }
+
+    public createImage(imageName : string, tag : string) : Promise<any> {
+        return new Promise((resolve, error) => {
+            this.socketService.invokeSocket(`/images/create?fromImage=${imageName}`, "POST", "")
+                .then(result => {
+                    console.log(result);
+                    resolve("true");
+                })
+                .catch(result => error(result));
+        });
+    }
 }

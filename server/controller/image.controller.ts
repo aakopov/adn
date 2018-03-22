@@ -14,4 +14,15 @@ export class ImageController {
                 response.sendStatus(500);
             });
     }
+
+    create = (request: Request, response: Response, next: NextFunction) => {
+        this.imageService.createImage(request.params.imageName, request.params.tag)
+            .then(result => {
+                response.send(result);
+            })
+            .catch(result => {
+                console.log(result);
+                response.sendStatus(500);
+            });
+    }
 }
