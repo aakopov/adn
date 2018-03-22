@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
+@Injectable()
+export class ContainerService {
+    private readonly httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+
+    private serviceUrl: string;
+    constructor(private http: HttpClient){
+        this.serviceUrl = "/api/container";
+    }
+
+    get(): Observable<{}[]> {
+        return this.http.get<{}[]>(this.serviceUrl);
+    }
+
+    delete(containerId: string): Observable<boolean> {
+        return this.http.delete<boolean>(this.serviceUrl + "/" + containerId);
+    }
+
+    stop(containerId: string): Observable<boolean> {
+        return this.http.post<boolean>(this.serviceUrl + "/stop/" + containerId, "");
+    }
+
+    start(containerId: string): Observable<boolean> {
+        return this.http.post<boolean>(this.serviceUrl + "/start/" + containerId, "");
+    }
+
+    create(name: string, config: string): Observable<{}> {
+        return this.http.post<{}>(this.serviceUrl + "/" + name, config, this.httpOptions);
+    }
+}

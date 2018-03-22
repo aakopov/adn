@@ -1,0 +1,52 @@
+<form>
+    <div class="form-group">
+        <label for="cName">Container name:</label>
+        <input name="cName" [(ngModel)]="newContainer.name">
+    </div>
+    <div class="form-group">
+        <label for="iName">Image name:</label>
+        <select name="iName" [(ngModel)]="newContainer.image">
+            <option disabled>Select image</option>
+            <option *ngFor="let image of images">
+                {{image.RepoTags}}
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="hPort">Host port:</label>
+        <input name="hPort" [(ngModel)]="newContainer.hostPort">
+        <label for="cPort">Container port:</label>
+        <input name="cPort" [(ngModel)]="newContainer.containerPort">
+    </div>    
+    <button (click)="createContainer()">Create</button>
+</form>
+<table class="table">
+    <thead>
+        <th scope="col">Container name</th>
+        <th scope="col">Image name</th>
+        <th scope="col">Ports</th>
+        <th scope="col">State</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let container of containers">
+            <td>{{container.Names}}</td>
+            <td>{{container.Image}}</td>
+            <td>
+                <ul>
+                    <li *ngFor="let port of container.Ports">
+                        {{port.PublicPort}}:{{port.PrivatePort}}
+                    </li>
+                </ul>
+            </td>
+            <td>{{container.State}}</td>
+            <td>{{container.Status}}</td>
+            <td>
+                <button [hidden]="container.State == 'running'" (click)="deleteContainer(container.Id)">Delete</button>
+                <button [hidden]="container.State != 'running'" (click)="stopContainer(container.Id)">Stop</button>
+                <button [hidden]="container.State != 'created'" (click)="startContainer(container.Id)">Start</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
