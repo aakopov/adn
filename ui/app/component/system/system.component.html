@@ -1,0 +1,24 @@
+<table class="table">
+    <tr>
+        <td>Operating system:</td>
+        <td>{{info["OperatingSystem"]}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Kernel version:</td>
+        <td>{{info["KernelVersion"]}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Architecture:</td>
+        <td>{{info["Architecture"]}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Swarm state:</td>
+        <td>{{info["Swarm"]["LocalNodeState"]}}</td>
+        <td>
+                <button [hidden]="info['Swarm']['LocalNodeState'] != 'inactive'">Init swarm</button>
+        </td>
+    </tr>
+</table>
