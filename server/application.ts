@@ -4,10 +4,12 @@ import * as bodyParser from "body-parser";
 import { ImageController } from './controller/image.controller';
 import { ContainerController } from './controller/container.controller';
 import { SystemController } from './controller/system.controller';
+import { NetworkController } from './controller/network.controller';
 
 import { ImageService } from './docker/image.service';
 import { ContainerService } from './docker/container.service';
 import { SystemService } from './docker/system.service';
+import { NetworkService } from './docker/network.service';
 import { SocketService } from './docker/socket.service';
 
 export class Application {
@@ -28,6 +30,7 @@ export class Application {
 
         var imageController = new ImageController(new ImageService(this.socketService));
         router.route("/image").get(imageController.list);
+        router.route("/image/create/:imageName/:tag").post(imageController.create);
 
         var containerController = new ContainerController(new ContainerService(this.socketService));
         router.route("/container").get(containerController.list);
@@ -38,6 +41,9 @@ export class Application {
 
         var systemController = new SystemController(new SystemService(this.socketService));
         router.route("/system/info").get(systemController.info);
+
+        var networkController = new NetworkController(new NetworkService(this.socketService));
+        router.route("/network").get(networkController.list);
 
         this.expressApplication.use("/api", router);
 
