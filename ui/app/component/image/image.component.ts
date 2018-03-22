@@ -17,4 +17,11 @@ export class ImageComponent implements OnInit {
         this.imageService.get()
             .subscribe(images => this.images = images);
     }
+
+    createImage(imageName: string, tag: string){
+        this.imageService.create(imageName, tag)
+            .subscribe(result =>{
+                this.getImages();
+            });
+    }
 }

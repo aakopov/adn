@@ -1,3 +1,8 @@
+Pull new image:
+<input #iName>
+:
+<input #iTag value="latest">
+<button (click)="createImage(iName.value, iTag.value);">Add</button>
 <table class="table">
     <thead>
         <th scope="col">Image tags</th>
