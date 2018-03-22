@@ -8,11 +8,13 @@ import { AppRouteModule } from './app.route.module';
 import { ImageService } from './service/image.service';
 import { ContainerService } from './service/container.service';
 import { SystemService } from './service/system.service';
+import { NetworkService } from './service/network.service';
 
 import { AppComponent } from './app.component';
 import { ImageComponent } from './component/image/image.component';
 import { ContainerComponent } from './component/container/container.component';
 import { SystemComponent } from './component/system/system.component';
+import { NetworkComponent } from './component/network/network.component';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { SystemComponent } from './component/system/system.component';
     AppComponent,
     ImageComponent,
     ContainerComponent,
-    SystemComponent
+    SystemComponent,
+    NetworkComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { SystemComponent } from './component/system/system.component';
   providers: [
     ImageService,
     ContainerService,
-    SystemService
+    SystemService,
+    NetworkService
   ],
   bootstrap: [AppComponent]
 })
