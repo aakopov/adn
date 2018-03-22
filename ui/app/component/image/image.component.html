@@ -1,0 +1,14 @@
+<table class="table">
+    <thead>
+        <th scope="col">Image tags</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let image of images">
+            <td>
+                <ul>
+                    {{image.RepoTags}}
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
