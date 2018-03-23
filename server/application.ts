@@ -5,11 +5,13 @@ import { ImageController } from './controller/image.controller';
 import { ContainerController } from './controller/container.controller';
 import { SystemController } from './controller/system.controller';
 import { NetworkController } from './controller/network.controller';
+import { ServiceController } from './controller/service.controller';
 
 import { ImageService } from './docker/image.service';
 import { ContainerService } from './docker/container.service';
 import { SystemService } from './docker/system.service';
 import { NetworkService } from './docker/network.service';
+import { ServiceService } from './docker/service.service';
 import { SocketService } from './docker/socket.service';
 
 export class Application {
@@ -48,6 +50,11 @@ export class Application {
         router.route("/network").get(networkController.list);
         router.route("/network").post(networkController.create);
         router.route("/network").delete(networkController.delete);
+
+        var serviceController = new ServiceController(new ServiceService(this.socketService));
+        router.route("/service").get(serviceController.list);
+        router.route("/service").delete(serviceController.delete);
+        router.route("/service").post(serviceController.create);
 
         this.expressApplication.use("/api", router);
 

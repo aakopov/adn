@@ -57,7 +57,7 @@
     <tbody>
         <tr *ngFor="let container of containers">
             <td>{{container.Names}}</td>
-            <td>{{container.Image}}</td>
+            <td>{{container.Image.split("@")[0]}}</td>
             <td>
                 <ul>
                     <li *ngFor="let port of container.Ports">

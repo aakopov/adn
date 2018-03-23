@@ -9,12 +9,14 @@ import { ImageService } from './service/image.service';
 import { ContainerService } from './service/container.service';
 import { SystemService } from './service/system.service';
 import { NetworkService } from './service/network.service';
+import { ServiceService } from './service/service.service';
 
 import { AppComponent } from './app.component';
 import { ImageComponent } from './component/image/image.component';
 import { ContainerComponent } from './component/container/container.component';
 import { SystemComponent } from './component/system/system.component';
 import { NetworkComponent } from './component/network/network.component';
+import { ServiceComponent } from './component/service/service.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { NetworkComponent } from './component/network/network.component';
     ImageComponent,
     ContainerComponent,
     SystemComponent,
-    NetworkComponent
+    NetworkComponent,
+    ServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { NetworkComponent } from './component/network/network.component';
     ImageService,
     ContainerService,
     SystemService,
-    NetworkService
+    NetworkService,
+    ServiceService
   ],
   bootstrap: [AppComponent]
 })
