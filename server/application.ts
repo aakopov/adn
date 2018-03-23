@@ -41,6 +41,8 @@ export class Application {
 
         var systemController = new SystemController(new SystemService(this.socketService));
         router.route("/system/info").get(systemController.info);
+        router.route("/system/swarm/init").post(systemController.swarmInit);
+        router.route("/system/swarm/leave").post(systemController.leaveSwarm);
 
         var networkController = new NetworkController(new NetworkService(this.socketService));
         router.route("/network").get(networkController.list);
