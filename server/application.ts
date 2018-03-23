@@ -30,20 +30,22 @@ export class Application {
 
         var imageController = new ImageController(new ImageService(this.socketService));
         router.route("/image").get(imageController.list);
-        router.route("/image/create/:imageName/:tag").post(imageController.create);
+        router.route("/image/create").post(imageController.create);
 
         var containerController = new ContainerController(new ContainerService(this.socketService));
         router.route("/container").get(containerController.list);
-        router.route("/container/:id").delete(containerController.delete);
-        router.route("/container/stop/:id").post(containerController.stop);
-        router.route("/container/start/:id").post(containerController.start);
-        router.route("/container/:name").post(containerController.create);
+        router.route("/container").delete(containerController.delete);
+        router.route("/container/stop").post(containerController.stop);
+        router.route("/container/start").post(containerController.start);
+        router.route("/container").post(containerController.create);
 
         var systemController = new SystemController(new SystemService(this.socketService));
         router.route("/system/info").get(systemController.info);
 
         var networkController = new NetworkController(new NetworkService(this.socketService));
         router.route("/network").get(networkController.list);
+        router.route("/network").post(networkController.create);
+        router.route("/network").delete(networkController.delete);
 
         this.expressApplication.use("/api", router);
 
