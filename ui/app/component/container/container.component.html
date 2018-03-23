@@ -1,25 +1,50 @@
-<form>
-    <div class="form-group">
-        <label for="cName">Container name:</label>
-        <input name="cName" [(ngModel)]="newContainer.name">
+<div class="card border-secondary mb-3">
+    <div class="card-header">Create new container</div>
+    <div class="card-body">
+        <table>
+            <tr>
+                <td>
+                    <label>Container name:</label>
+                </td>
+                <td>
+                    <input name="cName" [(ngModel)]="newContainer.name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Image name:</label>
+                </td>
+                <td>
+                    <select name="iName" [(ngModel)]="newContainer.image">
+                        <option disabled>Select image</option>
+                        <option *ngFor="let image of images">
+                            {{image.RepoTags}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Host port:</label>
+                </td>
+                <td>              
+                    <input name="hPort" [(ngModel)]="newContainer.hostPort">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Container port:</label>
+                </td>                
+                <td>
+                    <input name="cPort" [(ngModel)]="newContainer.containerPort">
+                </td>
+            </tr>
+        </table>
+        <p class="card-text">
+            <button type="button" class="btn btn-success" (click)="createContainer()">Create</button>
+        </p>
     </div>
-    <div class="form-group">
-        <label for="iName">Image name:</label>
-        <select name="iName" [(ngModel)]="newContainer.image">
-            <option disabled>Select image</option>
-            <option *ngFor="let image of images">
-                {{image.RepoTags}}
-            </option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="hPort">Host port:</label>
-        <input name="hPort" [(ngModel)]="newContainer.hostPort">
-        <label for="cPort">Container port:</label>
-        <input name="cPort" [(ngModel)]="newContainer.containerPort">
-    </div>    
-    <button (click)="createContainer()">Create</button>
-</form>
+</div>
 <table class="table">
     <thead>
         <th scope="col">Container name</th>
@@ -42,10 +67,10 @@
             </td>
             <td>{{container.State}}</td>
             <td>{{container.Status}}</td>
-            <td>
-                <button [hidden]="container.State == 'running'" (click)="deleteContainer(container.Id)">Delete</button>
-                <button [hidden]="container.State != 'running'" (click)="stopContainer(container.Id)">Stop</button>
-                <button [hidden]="container.State != 'created'" (click)="startContainer(container.Id)">Start</button>
+            <td>                                
+                <button type="button" class="btn btn-success" [hidden]="container.State == 'running'" (click)="startContainer(container.Id)">Start</button>
+                <button type="button" class="btn btn-warning" [hidden]="container.State != 'running'" (click)="stopContainer(container.Id)">Stop</button>
+                <button type="button" class="btn btn-danger" [hidden]="container.State == 'running'" (click)="deleteContainer(container.Id)">Delete</button>
             </td>
         </tr>
     </tbody>

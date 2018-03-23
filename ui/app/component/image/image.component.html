@@ -1,8 +1,12 @@
-Pull new image:
-<input #iName>
-:
-<input #iTag value="latest">
-<button (click)="createImage(iName.value, iTag.value);">Add</button>
+<div class="card border-secondary mb-3">
+    <div class="card-header">Pull new image</div>
+    <div class="card-body">
+      <p class="card-text">
+        <input #iName>:<input #iTag value="latest">
+        <button type="button" class="btn btn-success" (click)="createImage(iName.value, iTag.value);">Add</button>
+      </p>      
+    </div>
+</div>
 <table class="table">
     <thead>
         <th scope="col">Image tags</th>
