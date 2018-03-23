@@ -18,7 +18,8 @@
         <th scope="row">Swarm state:</th>
         <td>{{info["Swarm"]["LocalNodeState"]}}</td>
         <td>
-            <button type="button" class="btn btn-success" [hidden]="info['Swarm']['LocalNodeState'] != 'inactive'">Init swarm</button>
+            <button type="button" class="btn btn-success" [hidden]="info['Swarm']['LocalNodeState'] != 'inactive'" (click)="swarmInit()">Init swarm</button>
+            <button type="button" class="btn btn-danger" [hidden]="info['Swarm']['LocalNodeState'] != 'active'" (click)="leaveSwarm()">Leave</button>
         </td>
     </tr>
 </table>

@@ -17,4 +17,18 @@ export class SystemComponent {
         this.systemService.info()
             .subscribe(info => this.info = info);
     }
+
+    swarmInit(){
+        this.systemService.swarmInit()
+            .subscribe(result => {
+                this.getInfo();
+            });
+    }
+
+    leaveSwarm() {
+        this.systemService.leaveSwarm()
+            .subscribe(result => {
+                this.getInfo();
+            });
+    }
 }
