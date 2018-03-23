@@ -16,7 +16,7 @@ export class ImageController {
     }
 
     create = (request: Request, response: Response, next: NextFunction) => {
-        this.imageService.createImage(request.params.imageName, request.params.tag)
+        this.imageService.createImage(request.query.imageName, request.query.tag)
             .then(result => {
                 response.send(result);
             })

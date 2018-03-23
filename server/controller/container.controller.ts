@@ -16,7 +16,7 @@ export class ContainerController {
     }
 
     delete = (request: Request, response: Response, next: NextFunction) => {
-        this.containerService.removeContainer(request.params.id)
+        this.containerService.removeContainer(request.query.id)
             .then(result => {
                 response.send(result);
             })
@@ -27,7 +27,7 @@ export class ContainerController {
     }
 
     stop = (request: Request, response: Response, next: NextFunction) => {
-        this.containerService.stopContainer(request.params.id)
+        this.containerService.stopContainer(request.query.id)
             .then(result => {
                 response.send(result);
             })
@@ -38,7 +38,7 @@ export class ContainerController {
     }
 
     start = (request: Request, response: Response, next: NextFunction) => {
-        this.containerService.startContainer(request.params.id)
+        this.containerService.startContainer(request.query.id)
             .then(result => {
                 response.send(result);
             })
@@ -49,7 +49,7 @@ export class ContainerController {
     }
 
     create = (request: Request, response: Response, next: NextFunction) => {
-        this.containerService.createContainer(request.params.name, request.body)
+        this.containerService.createContainer(request.query.name, request.body)
             .then(result => {
                 response.send(result);
             })

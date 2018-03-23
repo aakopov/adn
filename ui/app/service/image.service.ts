@@ -18,6 +18,6 @@ export class ImageService {
     }
 
     create(imageName: string, tag: string): Observable<boolean> {
-        return this.http.post<boolean>(this.serviceUrl + "/create/" + imageName + "/" + tag, "");
+        return this.http.post<boolean>(this.serviceUrl + "/create?imageName=" + imageName + "&tag=" + tag, "");
     }
 }

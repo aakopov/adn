@@ -18,18 +18,18 @@ export class ContainerService {
     }
 
     delete(containerId: string): Observable<boolean> {
-        return this.http.delete<boolean>(this.serviceUrl + "/" + containerId);
+        return this.http.delete<boolean>(this.serviceUrl + "?id=" + containerId);
     }
 
     stop(containerId: string): Observable<boolean> {
-        return this.http.post<boolean>(this.serviceUrl + "/stop/" + containerId, "");
+        return this.http.post<boolean>(this.serviceUrl + "/stop?id=" + containerId, "");
     }
 
     start(containerId: string): Observable<boolean> {
-        return this.http.post<boolean>(this.serviceUrl + "/start/" + containerId, "");
+        return this.http.post<boolean>(this.serviceUrl + "/start?id=" + containerId, "");
     }
 
     create(name: string, config: string): Observable<{}> {
-        return this.http.post<{}>(this.serviceUrl + "/" + name, config, this.httpOptions);
+        return this.http.post<{}>(this.serviceUrl + "?name=" + name, config, this.httpOptions);
     }
 }
