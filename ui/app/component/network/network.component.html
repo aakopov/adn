@@ -1,12 +1,34 @@
+<form>
+    <div class="form-group">
+        <label for="nName">Network name:</label>
+        <input name="nName" [(ngModel)]="newNetwork.name">
+    </div>
+    <div class="form-group">
+        <label for="nDriver">Network driver:</label>
+        <select name="nDriver" [(ngModel)]="newNetwork.driver">
+            <option disabled>Select driver</option>
+            <option *ngFor="let driver of drivers">{{driver}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="subNet">Subnet:</label>
+        <input name="subNet" [(ngModel)]="newNetwork.subnet">
+    </div>
+    <button (click)="createNetwork()">Create</button>
+</form>
 <table class="table">
     <thead>
         <th>Name</th>
         <th>Driver</th>
+        <th></th>
     </thead>
     <tbody>
         <tr *ngFor="let net of networks">
             <td>{{net["Name"]}}</td>
             <td>{{net["Driver"]}}</td>
+            <td>
+                <button (click)="deleteNetwork(net['Id']);">Delete</button>
+            </td>
         </tr>
     </tbody>    
 </table>
