@@ -1,0 +1,63 @@
+<div class="card border-secondary mb-3">
+    <div class="card-header">Create new service</div>
+    <div class="card-body">
+        <table>
+            <tr>
+                <td>
+                    <label>Service name:</label>
+                </td>
+                <td>
+                    <input name="cName" [(ngModel)]="newService.name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Image name:</label>
+                </td>
+                <td>
+                    <select name="iName" [(ngModel)]="newService.image">
+                        <option disabled>Select image</option>
+                        <option *ngFor="let image of images">
+                            {{image.RepoTags}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Host port:</label>
+                </td>
+                <td>              
+                    <input name="hPort" [(ngModel)]="newService.hostPort">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Container port:</label>
+                </td>                
+                <td>
+                    <input name="cPort" [(ngModel)]="newService.containerPort">
+                </td>
+            </tr>
+        </table>
+        <p class="card-text">
+            <button type="button" class="btn btn-success" (click)="createService()">Create</button>
+        </p>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of services">
+            <td>{{service["Spec"]["Name"]}}</td>
+            <td>{{service["Spec"]["TaskTemplate"]["ContainerSpec"]["Image"].split("@")[0]}}</td>
+            <td>
+                <button type="button" class="btn btn-danger" (click)="deleteService(service.ID)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
