@@ -1,0 +1,36 @@
+<div class="card border-secondary mb-3">
+    <div class="card-header">Create new volume</div>
+    <div class="card-body">
+        <table>
+            <tr>
+                <td>
+                    <label>Volume name:</label>
+                </td>
+                <td>
+                    <input name="vName" [(ngModel)]="newVolume.name">
+                </td>
+            </tr>            
+        </table>
+      <p class="card-text">
+        <button type="button" class="btn btn-success" (click)="createVolume()">Create</button>
+      </p>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <th>Created At</th>
+        <th>Name</th>
+        <th>Driver</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let volume of volumes">
+            <td>{{volume["CreatedAt"]}}</td>
+            <td>{{volume["Name"]}}</td>
+            <td>{{volume["Driver"]}}</td>
+            <td>  
+                <button type="button" class="btn btn-danger" (click)="deleteNetwork(volume['Name']);">Delete</button>              
+            </td>
+        </tr>
+    </tbody>    
+</table>

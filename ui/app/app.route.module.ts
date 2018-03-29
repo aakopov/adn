@@ -6,6 +6,7 @@ import { ContainerComponent } from './component/container/container.component';
 import { SystemComponent } from './component/system/system.component';
 import { NetworkComponent } from './component/network/network.component';
 import { ServiceComponent } from './component/service/service.component';
+import { VolumeComponent } from './component/volume/volume.component';
 
 const routes : Routes = [
     {path: "", redirectTo: "/system", pathMatch: "full"},
@@ -13,7 +14,8 @@ const routes : Routes = [
     {path: "image", component: ImageComponent},
     {path: "container", component: ContainerComponent},
     {path: "network", component: NetworkComponent},
-    {path: "service", component: ServiceComponent}
+    {path: "service", component: ServiceComponent},
+    {path: "volume", component: VolumeComponent}
 ];
 
 @NgModule({

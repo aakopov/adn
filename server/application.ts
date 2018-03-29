@@ -60,6 +60,8 @@ export class Application {
 
         var volumeController = new VolumeController(new VolumeService(this.socketService));
         router.route("/volume").get(volumeController.list);
+        router.route("/volume").post(volumeController.create);
+        router.route("/volume").delete(volumeController.delete);
 
         this.expressApplication.use("/api", router);
 
