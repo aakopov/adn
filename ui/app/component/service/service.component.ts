@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../service/service.service';
 import { ImageService } from '../../service/image.service';
+import { VolumeService } from '../../service/volume.service';
 
 @Component({
     templateUrl: "./service.component.html"
@@ -8,15 +9,18 @@ import { ImageService } from '../../service/image.service';
 export class ServiceComponent implements OnInit {
     services: {}[];
     images: {}[];
+    volumes: {}[];
 
     newService = new NewService();
 
     constructor(private serviceService: ServiceService,
-        private imageService: ImageService){}
+        private imageService: ImageService,
+        private volumeService: VolumeService){}
 
     ngOnInit(){
         this.getServices();
         this.getImages();
+        this.getVolumes();
     }
 
     private getServices(){
@@ -27,6 +31,11 @@ export class ServiceComponent implements OnInit {
     private getImages(){
         this.imageService.get()
             .subscribe(images => this.images = images);
+    }
+
+    getVolumes(){
+        this.volumeService.get()
+            .subscribe(volumes => this.volumes = volumes["Volumes"]);
     }
 
     private deleteService(serviceId: string){
@@ -61,11 +70,19 @@ export class NewService {
     image: string;
     hostPort: string;
     containerPort: string;
+    mountVolume: string;
+    volumeTarget: string;
+    mountDir: string;
+    dirTarget: string;
 
     constructor(){
         this.name = "";
         this.image = "";
         this.hostPort = "";
         this.containerPort = "";
+        this.mountVolume = "";
+        this.volumeTarget = "";
+        this.mountDir = "";
+        this.dirTarget = "";
     }
 }

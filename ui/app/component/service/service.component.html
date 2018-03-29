@@ -39,6 +39,53 @@
                     <input name="cPort" [(ngModel)]="newService.containerPort">
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <label>Mount dir</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Source:</label>
+                </td>
+                <td>
+                    <input [(ngModel)]="newService.mountDir">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Target:</label>
+                </td>
+                <td>
+                    <input [(ngModel)]="newService.dirTarget">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>Mount volume</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Source:</label>
+                </td>
+                <td>
+                    <select name="iName" [(ngModel)]="newService.mountVolume">
+                        <option disabled>Select volume</option>
+                        <option *ngFor="let volume of volumes">
+                            {{volume.Name}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Target:</label>
+                </td>
+                <td>
+                    <input [(ngModel)]="newService.volumeTarget">
+                </td>
+            </tr>
         </table>
         <p class="card-text">
             <button type="button" class="btn btn-success" (click)="createService()">Create</button>
