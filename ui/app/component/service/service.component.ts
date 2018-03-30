@@ -30,12 +30,17 @@ export class ServiceComponent implements OnInit {
 
     private getImages(){
         this.imageService.get()
-            .subscribe(images => this.images = images);
+            .subscribe(images => {
+                this.images = images;
+                this.newService.image = this.images[0]["RepoTags"][0] as string;
+            });
     }
 
     getVolumes(){
         this.volumeService.get()
-            .subscribe(volumes => this.volumes = volumes["Volumes"]);
+            .subscribe(volumes => {
+                this.volumes = volumes["Volumes"];
+            });
     }
 
     private deleteService(serviceId: string){
@@ -48,20 +53,56 @@ export class ServiceComponent implements OnInit {
             "Name":"${this.newService.name}",
             "TaskTemplate":{
                 "ContainerSpec":{
-                    "Image":"${this.newService.image}"
+                    "Image":"${this.newService.image}",
+                    "Mounts":[
+                        ${this.buildMounts()}
+                    ]
                 }
             },
             "EndpointSpec":{
-                "Ports":[{
-                    "PublishedPort":${this.newService.hostPort},
-                    "TargetPort":${this.newService.containerPort}
-                }]
+                "Ports":[
+                    ${this.buildPorts()}
+                ]
             }
         }`)
             .subscribe(result => {
                 this.newService = new NewService();
                 this.getServices()
             });
+    }
+
+    buildMounts(): string {
+        var mounts: string = "";
+        if(this.newService.mountVolume){
+            mounts = `{
+                "Source":"${this.newService.mountVolume}",
+                "Target":"${this.newService.volumeTarget}",
+                "Type":"volume"
+            }`;
+        }
+        if(this.newService.mountDir){
+            if(mounts){
+                mounts += ",";
+            }
+            mounts += `{
+                "Source":"${this.newService.mountDir}",
+                "Target":"${this.newService.dirTarget}",
+                "Type":"bind"
+            }`;
+        }
+
+        return mounts;
+    }
+
+    buildPorts(): string {
+        var ports: string = "";
+        if(this.newService.containerPort){
+            ports = `{
+                "PublishedPort":${this.newService.hostPort},
+                "TargetPort":${this.newService.containerPort}
+            }`
+        }
+        return ports;
     }
 }
 

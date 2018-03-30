@@ -71,7 +71,7 @@
                 </td>
                 <td>
                     <select name="iName" [(ngModel)]="newService.mountVolume">
-                        <option disabled>Select volume</option>
+                        <option selected>None</option>
                         <option *ngFor="let volume of volumes">
                             {{volume.Name}}
                         </option>
