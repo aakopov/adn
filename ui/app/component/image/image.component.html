@@ -10,6 +10,7 @@
 <table class="table">
     <thead>
         <th scope="col">Image tags</th>
+        <th></th>
     </thead>
     <tbody>
         <tr *ngFor="let image of images">
@@ -17,6 +18,9 @@
                 <ul>
                     {{image.RepoTags}}
                 </ul>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" (click)="deleteImage(image.RepoTags[0])">Delete</button>
             </td>
         </tr>
     </tbody>

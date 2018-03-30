@@ -15,9 +15,19 @@ export class ImageService {
 
     public createImage(imageName : string, tag : string) : Promise<any> {
         return new Promise((resolve, error) => {
-            this.socketService.invokeSocket(`/images/create?fromImage=${imageName}`, "POST", "")
+            this.socketService.invokeSocket(`/images/create?fromImage=${imageName}&tag=${tag}`, "POST", "")
                 .then(result => {
                     console.log(result);
+                    resolve("true");
+                })
+                .catch(result => error(result));
+        });
+    }
+
+    public removeImage(imageName: string, force: boolean) : Promise<any> {
+        return new Promise((resolve, error) => {
+            this.socketService.invokeSocket(`/images/${imageName}?force=${force}`, "DELETE", null)
+                .then(result => {
                     resolve("true");
                 })
                 .catch(result => error(result));

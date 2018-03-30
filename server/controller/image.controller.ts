@@ -25,4 +25,15 @@ export class ImageController {
                 response.sendStatus(500);
             });
     }
+
+    delete = (request: Request, response: Response, next: NextFunction) => {
+        this.imageService.removeImage(request.query.imageName, request.query.force)
+            .then(result => {
+                response.send(result);
+            })
+            .catch(result => {
+                console.log(result);
+                response.sendStatus(500);
+            });
+    }
 }

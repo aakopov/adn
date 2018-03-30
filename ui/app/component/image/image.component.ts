@@ -24,4 +24,11 @@ export class ImageComponent implements OnInit {
                 this.getImages();
             });
     }
+
+    deleteImage(imageName: string) {
+        this.imageService.delete(imageName, false)
+            .subscribe(result => {
+                this.getImages();
+            });
+    }
 }

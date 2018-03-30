@@ -35,6 +35,7 @@ export class Application {
         var imageController = new ImageController(new ImageService(this.socketService));
         router.route("/image").get(imageController.list);
         router.route("/image/create").post(imageController.create);
+        router.route("/image").delete(imageController.delete);
 
         var containerController = new ContainerController(new ContainerService(this.socketService));
         router.route("/container").get(containerController.list);
