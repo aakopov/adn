@@ -7,6 +7,7 @@ import { SystemController } from './controller/system.controller';
 import { NetworkController } from './controller/network.controller';
 import { ServiceController } from './controller/service.controller';
 import { VolumeController } from './controller/volume.controller';
+import { TaskController } from './controller/task.controller';
 
 import { ImageService } from './docker/image.service';
 import { ContainerService } from './docker/container.service';
@@ -14,6 +15,7 @@ import { SystemService } from './docker/system.service';
 import { NetworkService } from './docker/network.service';
 import { ServiceService } from './docker/service.service';
 import { VolumeService } from './docker/volume.service';
+import { TaskService } from './docker/task.service';
 import { SocketService } from './docker/socket.service';
 
 export class Application {
@@ -63,6 +65,9 @@ export class Application {
         router.route("/volume").get(volumeController.list);
         router.route("/volume").post(volumeController.create);
         router.route("/volume").delete(volumeController.delete);
+
+        var taskController = new TaskController(new TaskService(this.socketService));
+        router.route("/task").get(taskController.list);
 
         this.expressApplication.use("/api", router);
 
