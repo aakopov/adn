@@ -25,6 +25,19 @@
             </tr>
             <tr>
                 <td>
+                    <label>Network:</label>
+                </td>
+                <td>
+                    <select [(ngModel)]="newService.network">
+                        <option selected>None</option>
+                        <option *ngFor="let net of networks">
+                            {{net["Name"]}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label>Host port:</label>
                 </td>
                 <td>              
@@ -37,6 +50,22 @@
                 </td>                
                 <td>
                     <input name="cPort" [(ngModel)]="newService.containerPort">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>Environment variables</label>
+                </td>
+            </tr>
+            <tr *ngFor="let v of newService.envVars">
+                <td>
+                    <label>name:</label>
+                    <input [(ngModel)]="v.name">
+                </td>
+                <td>
+                    <label>value:</label>
+                    <input [(ngModel)]="v.value">
+                    <button type="button" class="btn btn-success" (click)="addVariable()">+</button>
                 </td>
             </tr>
             <tr>

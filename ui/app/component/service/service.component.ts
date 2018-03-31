@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../service/service.service';
 import { ImageService } from '../../service/image.service';
 import { VolumeService } from '../../service/volume.service';
+import { NetworkService } from '../../service/network.service';
 
 @Component({
     templateUrl: "./service.component.html"
@@ -10,22 +11,30 @@ export class ServiceComponent implements OnInit {
     services: {}[];
     images: {}[];
     volumes: {}[];
+    networks: {}[];
 
     newService = new NewService();
 
     constructor(private serviceService: ServiceService,
         private imageService: ImageService,
-        private volumeService: VolumeService){}
+        private volumeService: VolumeService,
+        private networkService: NetworkService){}
 
     ngOnInit(){
         this.getServices();
         this.getImages();
         this.getVolumes();
+        this.getNetworks();
     }
 
     private getServices(){
         this.serviceService.get()
             .subscribe(services => this.services = services);
+    }
+
+    private getNetworks(){
+        this.networkService.get()
+            .subscribe(networks => this.networks = networks);
     }
 
     private getImages(){
@@ -56,8 +65,10 @@ export class ServiceComponent implements OnInit {
                     "Image":"${this.newService.image}",
                     "Mounts":[
                         ${this.buildMounts()}
-                    ]
-                }
+                    ],
+                    "Env":[${this.buildVars()}]
+                },
+                "Networks": [${this.buildNetworks()}]
             },
             "EndpointSpec":{
                 "Ports":[
@@ -69,6 +80,15 @@ export class ServiceComponent implements OnInit {
                 this.newService = new NewService();
                 this.getServices()
             });
+    }
+
+    buildNetworks(): string {
+        if(this.newService.network){
+            return `{
+                "Target":"${this.newService.network}"
+            }`
+        }
+        return "";
     }
 
     buildMounts(): string {
@@ -104,6 +124,24 @@ export class ServiceComponent implements OnInit {
         }
         return ports;
     }
+
+    buildVars(): string {
+        var variables: string = "";
+        for(let v of this.newService.envVars){
+            if(variables){
+                variables += ",";
+            }
+            if(v.name){
+                variables += `"${v.name}=${v.value}"`;
+            }            
+        }
+
+        return variables;
+    }
+
+    addVariable(){
+        this.newService.envVars.push(new EnvironmentVariable());
+    }
 }
 
 export class NewService {
@@ -115,6 +153,8 @@ export class NewService {
     volumeTarget: string;
     mountDir: string;
     dirTarget: string;
+    envVars: EnvironmentVariable[];
+    network: string;
 
     constructor(){
         this.name = "";
@@ -125,5 +165,17 @@ export class NewService {
         this.volumeTarget = "";
         this.mountDir = "";
         this.dirTarget = "";
+        this.envVars = [new EnvironmentVariable()];
+        this.network = "";
+    }
+}
+
+export class EnvironmentVariable {
+    name: string;
+    value: string;
+
+    constructor(){
+        this.name = "";
+        this.value = "";
     }
 }
