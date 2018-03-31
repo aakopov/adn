@@ -6,11 +6,12 @@ Simple Web UI for Docker manage
 
 1. npm run-script build
 2. npm run-script build-server
-3. docker build -t adn-athena:${VERSION} .
+3. docker build -t `node app-version.js` .
 
 # Run
 
-    docker run --name="athena" \
-        --volume=/var/run/docker.sock:/var/run/docker.sock \
+    docker service create \
+        --name athena \
+        --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
         -p 3000:3000 \
-        adn-athena:${VERSION}
+	    `node app-version.js`
