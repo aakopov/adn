@@ -9,4 +9,4 @@ docker service create \
     --name athena \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
     -p 3000:3000 \
-	adn-athena:0.0.1
+	`node app-version.js`
