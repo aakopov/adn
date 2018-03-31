@@ -11,6 +11,7 @@ import { SystemService } from './service/system.service';
 import { NetworkService } from './service/network.service';
 import { ServiceService } from './service/service.service';
 import { VolumeService } from './service/volume.service';
+import { TaskService } from './service/task.service';
 
 import { AppComponent } from './app.component';
 import { ImageComponent } from './component/image/image.component';
@@ -43,7 +44,8 @@ import { VolumeComponent } from './component/volume/volume.component';
     SystemService,
     NetworkService,
     ServiceService,
-    VolumeService
+    VolumeService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })

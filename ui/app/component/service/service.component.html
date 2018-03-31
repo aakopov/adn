@@ -121,16 +121,19 @@
         </p>
     </div>
 </div>
+<button type="button" class="btn btn-success" (click)="ngOnInit()">Refresh</button>
 <table class="table">
     <thead>
         <th scope="col">Name</th>
         <th scope="col">Image</th>
+        <th scope="col">Status</th>
         <th scope="col"></th>
     </thead>
     <tbody>
         <tr *ngFor="let service of services">
             <td>{{service["Spec"]["Name"]}}</td>
             <td>{{service["Spec"]["TaskTemplate"]["ContainerSpec"]["Image"].split("@")[0]}}</td>
+            <td>{{service["Status"]["State"]}}({{service["Status"]["Message"]}})</td>
             <td>
                 <button type="button" class="btn btn-danger" (click)="deleteService(service.ID)">Delete</button>
             </td>

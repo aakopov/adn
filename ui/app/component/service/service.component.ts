@@ -3,6 +3,7 @@ import { ServiceService } from '../../service/service.service';
 import { ImageService } from '../../service/image.service';
 import { VolumeService } from '../../service/volume.service';
 import { NetworkService } from '../../service/network.service';
+import { TaskService } from '../../service/task.service';
 
 @Component({
     templateUrl: "./service.component.html"
@@ -18,7 +19,8 @@ export class ServiceComponent implements OnInit {
     constructor(private serviceService: ServiceService,
         private imageService: ImageService,
         private volumeService: VolumeService,
-        private networkService: NetworkService){}
+        private networkService: NetworkService,
+        private taskService: TaskService){}
 
     ngOnInit(){
         this.getServices();
@@ -29,7 +31,15 @@ export class ServiceComponent implements OnInit {
 
     private getServices(){
         this.serviceService.get()
-            .subscribe(services => this.services = services);
+            .subscribe(services => {                
+                this.services = services;
+                for(let s of this.services){
+                    this.taskService.listTasks(`{"service":{"${s["Spec"]["Name"]}":true}}`)
+                        .subscribe(result => {
+                            s["Status"] = result[0]["Status"];
+                        });
+                }                
+            });
     }
 
     private getNetworks(){
